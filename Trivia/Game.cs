@@ -20,18 +20,27 @@ namespace Trivia
         private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _technoQuestions = new LinkedList<string>();
 
+        private String selectMode;
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
         public Game()
         {
+            Console.WriteLine("Rock ou Techno ?");
+            selectMode = Console.ReadLine();
             for (var i = 0; i < 50; i++)
             {
                 _popQuestions.AddLast("Pop Question " + i);
                 _scienceQuestions.AddLast(("Science Question " + i));
                 _sportsQuestions.AddLast(("Sports Question " + i));
-                _rockQuestions.AddLast(CreateRockQuestion(i));
-                _technoQuestions.AddLast(CreateTechnoQuestion(i));
+                if (selectMode == "Rock")
+                {
+                    _rockQuestions.AddLast(CreateRockQuestion(i));
+                }
+                else
+                {
+                    _technoQuestions.AddLast(CreateTechnoQuestion(i));
+                }
             }
         }
 
@@ -186,7 +195,14 @@ namespace Trivia
             if (_places[_currentPlayer] == 2) return "Sports";
             if (_places[_currentPlayer] == 6) return "Sports";
             if (_places[_currentPlayer] == 10) return "Sports";
-            return "Techno";
+            if (selectMode == "Rock")
+            {
+                return "Rock";
+            }
+            else
+            {
+                return "Techno";
+            }
         }
 
         public bool WasCorrectlyAnswered()
