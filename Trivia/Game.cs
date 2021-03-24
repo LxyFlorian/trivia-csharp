@@ -17,6 +17,7 @@ namespace Trivia
         private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
         private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> _technoQuestions = new LinkedList<string>();
 
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
@@ -29,12 +30,18 @@ namespace Trivia
                 _scienceQuestions.AddLast(("Science Question " + i));
                 _sportsQuestions.AddLast(("Sports Question " + i));
                 _rockQuestions.AddLast(CreateRockQuestion(i));
+                _technoQuestions.AddLast(CreateTechnoQuestion(i));
             }
         }
 
         public string CreateRockQuestion(int index)
         {
             return "Rock Question " + index;
+        }
+
+        public string CreateTechnoQuestion(int index)
+        {
+            return "Techno Question " + index;
         }
 
         public bool IsPlayable()
@@ -121,6 +128,11 @@ namespace Trivia
                 Console.WriteLine(_rockQuestions.First());
                 _rockQuestions.RemoveFirst();
             }
+            if (CurrentCategory() == "Techno")
+            {
+                Console.WriteLine(_technoQuestions.First());
+                _technoQuestions.RemoveFirst();
+            }
         }
 
         private string CurrentCategory()
@@ -134,7 +146,7 @@ namespace Trivia
             if (_places[_currentPlayer] == 2) return "Sports";
             if (_places[_currentPlayer] == 6) return "Sports";
             if (_places[_currentPlayer] == 10) return "Sports";
-            return "Rock";
+            return "Techno";
         }
 
         public bool WasCorrectlyAnswered()
