@@ -11,7 +11,7 @@ namespace Trivia
             var aGame = new Game();
 
             aGame.Add("Chet");
-            aGame.Add("Chet");
+            aGame.Add("Foo");
 
             var rand = new Random();
 
@@ -29,7 +29,7 @@ namespace Trivia
 
                 if (aGame.UseJoker())
                 {
-                    if (rand.Next(9) == 7)
+                    if (rand.Next(9) > 7)
                     {
                         _notAWinner = aGame.WrongAnswer();
                     }

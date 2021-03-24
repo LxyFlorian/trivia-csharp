@@ -90,7 +90,7 @@ namespace Trivia
             Console.WriteLine(_players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            Console.WriteLine("Voulez vous sortir ?");
+            Console.WriteLine("Voulez vous quitter ?");
             Console.WriteLine("Repondre 1 pour oui");
             Console.WriteLine("Repondre 0 pour non");
             int leaveGame = Convert.ToInt32(Console.ReadLine());
@@ -217,7 +217,7 @@ namespace Trivia
             }
             else
             {
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 _purses[_currentPlayer]++;
                 Console.WriteLine(_players[_currentPlayer]
                         + " now has "
@@ -246,7 +246,7 @@ namespace Trivia
         public bool UseJoker()
         {
             int useJoker = new Random().Next(9) + 1;
-            if (!joker[_currentPlayer] && useJoker > 4)
+            if (!joker[_currentPlayer] && useJoker > 5)
             {
                 joker[_currentPlayer] = true;
                 Console.WriteLine(_players[_currentPlayer] + " use his joker.");
