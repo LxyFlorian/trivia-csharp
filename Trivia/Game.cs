@@ -50,7 +50,6 @@ namespace Trivia
 
         public bool Add(string playerName)
         {
-            Console.WriteLine(HowManyPlayers());
             if (HowManyPlayers() < 5)
             {
                 _players.Add(playerName);
@@ -64,6 +63,7 @@ namespace Trivia
             else
             {
                 Console.WriteLine("Cannot add player, only 6 players can be added to the game.");
+                Environment.Exit(0);
             }
             
             return true;
