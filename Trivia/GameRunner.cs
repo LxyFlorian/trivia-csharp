@@ -26,6 +26,7 @@ namespace Trivia
             do
             {
                 aGame.Roll(rand.Next(5) + 1);
+                _notAWinner = true;
 
                 if (aGame.UseJoker())
                 {

@@ -262,6 +262,16 @@ namespace Trivia
 
         public bool UseJoker()
         {
+            if (_inPenaltyBox[_currentPlayer])
+            {
+                if (!_isGettingOutOfPenaltyBox)
+                {
+                    _currentPlayer++;
+                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    return false;
+                }
+            }
+
             int useJoker = new Random().Next(9) + 1;
             if (!joker[_currentPlayer] && useJoker > 5)
             {
