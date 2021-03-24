@@ -21,7 +21,7 @@ namespace Trivia
             //Check if the game is playable.
             if (!aGame.IsPlayable())
             {
-                Console.WriteLine("The game is unplayable because there is less than 2 players or more than 6 players");
+                Console.WriteLine("Il faut minimum 2 joueurs et maximum 6 joueurs pour jouer");
                 Console.ReadLine();
                 Environment.Exit(0);
             }

@@ -26,7 +26,7 @@ namespace Trivia
 
         public Game()
         {
-            Console.WriteLine("How much point to win ?");
+            Console.WriteLine("Paramétrage : Entrez combien de points pour gagner :");
             Console.WriteLine("Minimum 6");
             do
             {
@@ -35,7 +35,7 @@ namespace Trivia
                 {
                     if(pointToWin >= 6)
                     {
-                        Console.WriteLine("You will play with win point to " + pointToWin + ".");
+                        Console.WriteLine("Le jeu sera gagné quand un premier joueur arrivera à " + pointToWin + " points.");
                     }
                     else
                     {
@@ -48,7 +48,6 @@ namespace Trivia
                 }
             } while (pointToWin < 6);
 
-
             string rockortechno = "";
             do
             {
@@ -56,7 +55,6 @@ namespace Trivia
                 rockortechno = Console.ReadLine();
             } while (rockortechno != "Rock" && rockortechno != "Techno");
             selectMode = rockortechno;
-
         }
 
         /// <summary>
@@ -82,12 +80,12 @@ namespace Trivia
                 joker[HowManyPlayers()] = false;
                 _inPenaltyBox[HowManyPlayers()] = false;
 
-                Console.WriteLine(playerName + " was added");
-                Console.WriteLine("They are player number " + _players.Count);
+                Console.WriteLine(playerName + " a rejoint la partie");
+                //Console.WriteLine("They are player number " + _players.Count);
             }
             else
             {
-                Console.WriteLine("Cannot add player, only 6 players can be added to the game.");
+                Console.WriteLine("Impossible d'ajouter le joueur. Seulement 6 personnes maximum par partie.");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
@@ -102,26 +100,28 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            Console.WriteLine(_players[_currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(_players[_currentPlayer] + " est le joueur actuel");
+            Console.ResetColor();
+            //Console.WriteLine("They have rolled a " + roll);
 
-            Console.WriteLine("Voulez vous quitter ?");
-            Console.WriteLine("Toucher ESC");
+            //Console.WriteLine("Voulez vous quitter la partie ?");
+            Console.WriteLine("Toucher la touche ESC si vous voulez quitter");
 
             if (Console.ReadKey().Key == ConsoleKey.Escape)
             {
-                Console.WriteLine(_players[_currentPlayer] + "est sorti");
+                Console.WriteLine(_players[_currentPlayer] + " est sorti");
                 _players.RemoveAt(_currentPlayer);
                 if (!IsPlayable())
                 {
-                    Console.WriteLine("La partie est terminé");
+                    Console.WriteLine("La partie est terminée");
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
             }
             else
             {
-                Console.WriteLine("Le joueur continu à jouer");
+                Console.WriteLine("Le joueur continue à jouer");
             }
 
             if (_inPenaltyBox[_currentPlayer])
@@ -131,19 +131,19 @@ namespace Trivia
                     _isGettingOutOfPenaltyBox = true;
                     _inPenaltyBox[_currentPlayer] = false;
 
-                    Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
+                    Console.WriteLine(_players[_currentPlayer] + " va en prison");
                     _places[_currentPlayer] = _places[_currentPlayer] + roll;
                     if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
-                    Console.WriteLine(_players[_currentPlayer]
-                            + "'s new location is "
-                            + _places[_currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    //Console.WriteLine(_players[_currentPlayer]
+                    //        + "'s new location is "
+                    //        + _places[_currentPlayer]);
+                    Console.WriteLine("La catégorie de la question est : " + CurrentCategory());
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine("Malheureusement " + _players[_currentPlayer] + " ne sors pas de la prison");
                     _isGettingOutOfPenaltyBox = false;
                 }
             }
@@ -152,10 +152,10 @@ namespace Trivia
                 _places[_currentPlayer] = _places[_currentPlayer] + roll;
                 if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
-                Console.WriteLine(_players[_currentPlayer]
-                        + "'s new location is "
-                        + _places[_currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
+                //Console.WriteLine(_players[_currentPlayer]
+                //        + "'s new location is "
+                //        + _places[_currentPlayer]);
+                Console.WriteLine("La catégorie de la question est : " + CurrentCategory());
                 AskQuestion();
             }
         }
@@ -256,7 +256,7 @@ namespace Trivia
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
+                    ////Console.WriteLine("Bonne réponse !!!!");
                     _purses[_currentPlayer]++;
                     bonus[_currentPlayer]++;
 
@@ -269,7 +269,7 @@ namespace Trivia
                         _purses[_currentPlayer] += bonus[_currentPlayer];
                     }
                     Console.WriteLine(_players[_currentPlayer]
-                            + " now has "
+                            + " à maintenant "
                             + _purses[_currentPlayer]
                             + " Gold Coins.");
                     
@@ -288,7 +288,7 @@ namespace Trivia
             }
             else
             {
-                Console.WriteLine("Answer was correct!!!!");
+                Console.WriteLine("Bonne réponse !!!!");
                 _purses[_currentPlayer]++;
                 bonus[_currentPlayer]++;
 
@@ -302,7 +302,7 @@ namespace Trivia
                 }
 
                 Console.WriteLine(_players[_currentPlayer]
-                        + " now has "
+                        + " à maintenant "
                         + _purses[_currentPlayer]
                         + " Gold Coins.");
 
@@ -316,8 +316,8 @@ namespace Trivia
 
         public bool WrongAnswer()
         {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_players[_currentPlayer] + " Doit choisir quelle catégorie le prochain joueur va avoir parmis : ");
+            Console.WriteLine("Mauvaise réponse");
+            Console.WriteLine(_players[_currentPlayer] + " Doit choisir la catégorie de question que le prochain joueur va répondre, parmis : ");
             Console.WriteLine("Pop - Science - Sports - " + selectMode);
             string nextCategory = Console.ReadLine();
             if(nextCategory == "Rock" || nextCategory == "Techno")
@@ -331,7 +331,7 @@ namespace Trivia
            
                 
             this.selectNextCategory = nextCategory;
-            Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
+            Console.WriteLine("Malheureusement " + _players[_currentPlayer] + " va en prison");
             _inPenaltyBox[_currentPlayer] = true;
             bonus[_currentPlayer] = 0;
 
@@ -356,7 +356,7 @@ namespace Trivia
             if (!joker[_currentPlayer] && useJoker > 5)
             {
                 joker[_currentPlayer] = true;
-                Console.WriteLine(_players[_currentPlayer] + " use his joker.");
+                Console.WriteLine(_players[_currentPlayer] + " utilise son joker.");
                 _currentPlayer++;
                 if (_currentPlayer == _players.Count) _currentPlayer = 0;
                 return false;
