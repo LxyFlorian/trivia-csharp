@@ -44,6 +44,7 @@ namespace Trivia
                 }
                 
             } while (_notAWinner);
+            aGame.Statistiques();
             Console.ReadLine();
         }
     }

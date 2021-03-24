@@ -15,11 +15,7 @@ namespace Trivia
 
         private readonly bool[] _inPenaltyBox = new bool[6];
 
-        private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _technoQuestions = new LinkedList<string>();
+        private readonly int[] countQuestion = new int[] {0, 0, 0, 0, 0 };
 
         private String selectMode;
         private String selectNextCategory;
@@ -52,32 +48,13 @@ namespace Trivia
                 }
             } while (pointToWin < 6);
 
-            Console.WriteLine("Rock ou Techno ?");
-            selectMode = Console.ReadLine();
-            for (var i = 0; i < 50; i++)
+            string rockortechno = "";
+            do
             {
-                _popQuestions.AddLast("[Pop] Question : " + i);
-                _scienceQuestions.AddLast(("[Science] Question : " + i));
-                _sportsQuestions.AddLast(("[Sports] Question : " + i));
-                if (selectMode == "Rock")
-                {
-                    _rockQuestions.AddLast(CreateRockQuestion(i));
-                }
-                else
-                {
-                    _technoQuestions.AddLast(CreateTechnoQuestion(i));
-                }
-            }
-        }
-
-        public string CreateRockQuestion(int index)
-        {
-            return "[Rock] Question : " + index;
-        }
-
-        public string CreateTechnoQuestion(int index)
-        {
-            return "[Techno] Question : " + index;
+                Console.WriteLine("Rock ou Techno ?");
+                rockortechno = Console.ReadLine();
+            } while (rockortechno != "Rock" && rockortechno != "Techno");
+            selectMode = rockortechno;
         }
 
         /// <summary>
@@ -187,28 +164,38 @@ namespace Trivia
         {
             if (CurrentCategory() == "Pop")
             {
-                Console.WriteLine(_popQuestions.First());
-                _popQuestions.RemoveFirst();
+                int count = countQuestion[0];
+                count++;
+                countQuestion[0] = count;
+                Console.WriteLine("Pop Question " + countQuestion[0]);
             }
             if (CurrentCategory() == "Science")
             {
-                Console.WriteLine(_scienceQuestions.First());
-                _scienceQuestions.RemoveFirst();
+                int count = countQuestion[1];
+                count++;
+                countQuestion[1] = count;
+                Console.WriteLine("Science Question " + countQuestion[1]);
             }
             if (CurrentCategory() == "Sports")
             {
-                Console.WriteLine(_sportsQuestions.First());
-                _sportsQuestions.RemoveFirst();
+                int count = countQuestion[2];
+                count++;
+                countQuestion[2] = count;
+                Console.WriteLine("Sports Question " + countQuestion[2]);
             }
             if (CurrentCategory() == "Rock")
             {
-                Console.WriteLine(_rockQuestions.First());
-                _rockQuestions.RemoveFirst();
+                int count = countQuestion[3];
+                count++;
+                countQuestion[3] = count;
+                Console.WriteLine("Rock Question " + countQuestion[3]);
             }
             if (CurrentCategory() == "Techno")
             {
-                Console.WriteLine(_technoQuestions.First());
-                _technoQuestions.RemoveFirst();
+                int count = countQuestion[4];
+                count++;
+                countQuestion[4] = count;
+                Console.WriteLine("Techno Question " + countQuestion[4]);
             }
         }
 
@@ -234,6 +221,32 @@ namespace Trivia
             else
             {
                 return "Techno";
+            }
+        }
+
+        public void Statistiques()
+        {
+            int count = 0;
+            if (selectMode == "Rock")
+            {
+                count = countQuestion[0] + countQuestion[1] + countQuestion[2] + countQuestion[3];
+            }
+            else if(selectMode == "Techno")
+            {
+                count = countQuestion[0] + countQuestion[1] + countQuestion[2] + countQuestion[4];
+            }
+
+            Console.WriteLine("Pop Question : " + ((float)countQuestion[0] / count) * 100 + "%.");
+            Console.WriteLine("Science Question : " + ((float)countQuestion[1] / count) * 100 + "%.");
+            Console.WriteLine("Sports Question : " + (float)((float)countQuestion[2] / count) * 100 + "%.");
+
+            if (selectMode == "Rock")
+            {
+                Console.WriteLine("Rock Question : " + ((float)countQuestion[3] / count) * 100 + "%.");
+            }
+            else if (selectMode == "Techno")
+            {
+                Console.WriteLine("Techno Question : " + ((float)countQuestion[4] / count) * 100 + "%.");
             }
         }
 
@@ -354,7 +367,7 @@ namespace Trivia
 
         private bool DidPlayerWin()
         {
-            return !(_purses[_currentPlayer] == pointToWin);
+            return !(_purses[_currentPlayer] >= pointToWin);
         }
     }
 
