@@ -100,11 +100,9 @@ namespace Trivia
             Console.WriteLine("They have rolled a " + roll);
 
             Console.WriteLine("Voulez vous quitter ?");
-            Console.WriteLine("Repondre 1 pour oui");
-            Console.WriteLine("Repondre 0 pour non");
-            int leaveGame = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Toucher ESC");
 
-            if (leaveGame == 1)
+            if (Console.ReadKey().Key == ConsoleKey.Escape)
             {
                 Console.WriteLine(_players[_currentPlayer] + "est sorti");
                 _players.RemoveAt(_currentPlayer);
