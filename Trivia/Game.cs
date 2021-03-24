@@ -87,6 +87,26 @@ namespace Trivia
             Console.WriteLine(_players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
+            Console.WriteLine("Voulez vous sortir ?");
+            Console.WriteLine("Repondre 1 pour oui");
+            Console.WriteLine("Repondre 0 pour non");
+            int leaveGame = Convert.ToInt32(Console.ReadLine());
+
+            if (leaveGame == 1)
+            {
+                Console.WriteLine(_players[_currentPlayer] + "est sorti");
+                _players.RemoveAt(_currentPlayer);
+                if (!IsPlayable())
+                {
+                    Console.WriteLine("La partie est terminé");
+                    Environment.Exit(0);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Le joueur continu à jouer");
+            }
+
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (roll % 2 != 0)
