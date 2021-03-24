@@ -11,6 +11,15 @@ namespace Trivia
             var aGame = new Game();
 
             aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
+            aGame.Add("Chet");
 
             var rand = new Random();
 
@@ -18,6 +27,7 @@ namespace Trivia
             if (!aGame.IsPlayable())
             {
                 Console.WriteLine("The game is unplayable because there is less than 2 players or more than 6 players");
+                Console.ReadLine();
                 Environment.Exit(0);
             }
 
@@ -33,7 +43,9 @@ namespace Trivia
                 {
                     _notAWinner = aGame.WasCorrectlyAnswered();
                 }
+                
             } while (_notAWinner);
+            Console.ReadLine();
         }
     }
 }

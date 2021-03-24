@@ -63,6 +63,7 @@ namespace Trivia
             else
             {
                 Console.WriteLine("Cannot add player, only 6 players can be added to the game.");
+                Console.ReadLine();
                 Environment.Exit(0);
             }
             
