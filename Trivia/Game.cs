@@ -21,6 +21,7 @@ namespace Trivia
         private readonly LinkedList<string> _technoQuestions = new LinkedList<string>();
 
         private String selectMode;
+        private String selectNextCategory;
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
@@ -209,9 +210,9 @@ namespace Trivia
 
         private string CurrentCategory()
         {
-            if (!String.IsNullOrEmpty(selectMode) && (selectMode == "Pop" || selectMode == "Science" || selectMode == "Sports" || selectMode == "Rock" || selectMode == "Techno"))
+            if (!String.IsNullOrEmpty(selectNextCategory) && (selectNextCategory == "Pop" || selectNextCategory == "Science" || selectNextCategory == "Sports" || selectNextCategory == selectMode))
             {
-                return selectMode;
+                return selectNextCategory;
             }
             if (_places[_currentPlayer] == 0) return "Pop";
             if (_places[_currentPlayer] == 4) return "Pop";
@@ -279,9 +280,19 @@ namespace Trivia
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(_players[_currentPlayer] + " Doit choisir quelle catégorie le prochain joueur va avoir parmis : ");
-            Console.WriteLine("Pop - Science - Sports - Rock - Techno");
+            Console.WriteLine("Pop - Science - Sports - " + selectMode);
             string nextCategory = Console.ReadLine();
-            this.selectMode = nextCategory;
+            if(nextCategory == "Rock" || nextCategory == "Techno")
+            {
+                while (nextCategory != selectMode)
+                {
+                    Console.WriteLine("Vous ne pouvez pas choisir une catégorie différente que celle du mode sélectionné. Merci de sélectionner " + selectMode);
+                    nextCategory = Console.ReadLine();
+                }
+            }
+           
+                
+            this.selectNextCategory = nextCategory;
             Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
 
