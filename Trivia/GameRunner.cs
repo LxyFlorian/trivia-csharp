@@ -11,10 +11,15 @@ namespace Trivia
             var aGame = new Game();
 
             aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
 
             var rand = new Random();
+
+            //Check if the game is playable.
+            if (!aGame.IsPlayable())
+            {
+                Console.WriteLine("The game is unplayable because there is less than 2 players or more than 6 players");
+                Environment.Exit(0);
+            }
 
             do
             {
