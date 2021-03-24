@@ -102,6 +102,7 @@ namespace Trivia
                 if (!IsPlayable())
                 {
                     Console.WriteLine("La partie est terminé");
+                    Console.ReadLine();
                     Environment.Exit(0);
                 }
             }
