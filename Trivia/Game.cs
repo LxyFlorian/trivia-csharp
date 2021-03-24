@@ -10,6 +10,7 @@ namespace Trivia
 
         private readonly int[] _places = new int[6];
         private readonly int[] _purses = new int[6];
+        private readonly int[] bonus = new int[6];
         private readonly bool[] joker = new bool[6];
 
         private readonly bool[] _inPenaltyBox = new bool[6];
@@ -73,6 +74,7 @@ namespace Trivia
                 _players.Add(playerName);
                 _places[HowManyPlayers()] = 0;
                 _purses[HowManyPlayers()] = 0;
+                bonus[HowManyPlayers()] = 0;
                 joker[HowManyPlayers()] = false;
                 _inPenaltyBox[HowManyPlayers()] = false;
 
@@ -214,11 +216,21 @@ namespace Trivia
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _purses[_currentPlayer]++;
+                    bonus[_currentPlayer]++;
+
+                    if (bonus[_currentPlayer] != 1)
+                    {
+                        Console.WriteLine(_players[_currentPlayer]
+                            + " gagne "
+                            + bonus[_currentPlayer]
+                            + " Gold Coins de bonus.");
+                        _purses[_currentPlayer] += bonus[_currentPlayer];
+                    }
                     Console.WriteLine(_players[_currentPlayer]
                             + " now has "
                             + _purses[_currentPlayer]
                             + " Gold Coins.");
-
+                    
                     var winner = DidPlayerWin();
                     _currentPlayer++;
                     if (_currentPlayer == _players.Count) _currentPlayer = 0;
@@ -236,6 +248,17 @@ namespace Trivia
             {
                 Console.WriteLine("Answer was correct!!!!");
                 _purses[_currentPlayer]++;
+                bonus[_currentPlayer]++;
+
+                if (bonus[_currentPlayer] != 1)
+                {
+                    Console.WriteLine(_players[_currentPlayer]
+                        + " gagne "
+                        + bonus[_currentPlayer]
+                        + " Gold Coins de bonus.");
+                    _purses[_currentPlayer] += bonus[_currentPlayer];
+                }
+
                 Console.WriteLine(_players[_currentPlayer]
                         + " now has "
                         + _purses[_currentPlayer]
@@ -254,6 +277,7 @@ namespace Trivia
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
+            bonus[_currentPlayer] = 0;
 
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
