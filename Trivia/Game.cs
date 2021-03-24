@@ -37,20 +37,35 @@ namespace Trivia
             return "Rock Question " + index;
         }
 
+        /// <summary>
+        /// Check if the game is playable. Check if number of player is >= 2 and <= 6.
+        /// </summary>
+        /// <returns>Boolean</returns>
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            int count = HowManyPlayers();
+            return (count >= 2 && count <= 6);
         }
+
 
         public bool Add(string playerName)
         {
-            _players.Add(playerName);
-            _places[HowManyPlayers()] = 0;
-            _purses[HowManyPlayers()] = 0;
-            _inPenaltyBox[HowManyPlayers()] = false;
+            Console.WriteLine(HowManyPlayers());
+            if (HowManyPlayers() < 5)
+            {
+                _players.Add(playerName);
+                _places[HowManyPlayers()] = 0;
+                _purses[HowManyPlayers()] = 0;
+                _inPenaltyBox[HowManyPlayers()] = false;
 
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + _players.Count);
+                Console.WriteLine(playerName + " was added");
+                Console.WriteLine("They are player number " + _players.Count);
+            }
+            else
+            {
+                Console.WriteLine("Cannot add player, only 6 players can be added to the game.");
+            }
+            
             return true;
         }
 
