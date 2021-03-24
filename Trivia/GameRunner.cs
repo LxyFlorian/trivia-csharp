@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Trivia
 {
@@ -8,6 +9,8 @@ namespace Trivia
 
         public static void Main(string[] args)
         {
+            int count = 0;
+
             var aGame = new Game();
 
             aGame.Add("Chet");
@@ -15,7 +18,7 @@ namespace Trivia
             aGame.Add("Paul");
             aGame.Add("Florian");
             aGame.Add("Yoann");
-
+            
             var rand = new Random();
 
             //Check if the game is playable.
@@ -42,8 +45,17 @@ namespace Trivia
                         _notAWinner = aGame.WasCorrectlyAnswered();
                     }
                 }
-                
-            } while (_notAWinner);
+
+                if (!_notAWinner)
+                {
+                    Console.WriteLine("Un joueur vient de monter sur le podium.");
+                    count++;
+                }
+
+            } while (count < 3);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Il y a maintenant 3 gagnants");
+            Console.ResetColor();
             Console.ReadLine();
         }
     }

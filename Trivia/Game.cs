@@ -6,7 +6,7 @@ namespace Trivia
 {
     public class Game
     {
-        private readonly List<string> _players = new List<string>();
+        public readonly List<string> _players = new List<string>();
 
         private readonly int[] _places = new int[6];
         private readonly int[] _purses = new int[6];
@@ -23,7 +23,7 @@ namespace Trivia
 
         private String selectMode;
         private String selectNextCategory;
-        private int _currentPlayer;
+        public int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
         public int pointToWin = 0;
@@ -354,7 +354,7 @@ namespace Trivia
 
         private bool DidPlayerWin()
         {
-            return !(_purses[_currentPlayer] == pointToWin);
+            return !(_purses[_currentPlayer] >= pointToWin);
         }
     }
 
