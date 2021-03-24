@@ -10,6 +10,7 @@ namespace Trivia
 
         private readonly int[] _places = new int[6];
         private readonly int[] _purses = new int[6];
+        private readonly bool[] joker = new bool[6];
 
         private readonly bool[] _inPenaltyBox = new bool[6];
 
@@ -63,6 +64,7 @@ namespace Trivia
                 _players.Add(playerName);
                 _places[HowManyPlayers()] = 0;
                 _purses[HowManyPlayers()] = 0;
+                joker[HowManyPlayers()] = false;
                 _inPenaltyBox[HowManyPlayers()] = false;
 
                 Console.WriteLine(playerName + " was added");
@@ -71,6 +73,7 @@ namespace Trivia
             else
             {
                 Console.WriteLine("Cannot add player, only 6 players can be added to the game.");
+                Console.ReadLine();
                 Environment.Exit(0);
             }
             
@@ -237,6 +240,20 @@ namespace Trivia
 
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
+            return true;
+        }
+
+        public bool UseJoker()
+        {
+            int useJoker = new Random().Next(9) + 1;
+            if (!joker[_currentPlayer] && useJoker > 4)
+            {
+                joker[_currentPlayer] = true;
+                Console.WriteLine(_players[_currentPlayer] + " use his joker.");
+                _currentPlayer++;
+                if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                return false;
+            }
             return true;
         }
 
