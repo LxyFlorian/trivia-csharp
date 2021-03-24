@@ -53,6 +53,7 @@ namespace Trivia
                 }
 
             } while (count < 3);
+            aGame.Statistiques();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Il y a maintenant 3 gagnants");
             Console.ResetColor();
