@@ -24,8 +24,32 @@ namespace Trivia
         private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
+        public int pointToWin = 0;
+
         public Game()
         {
+            Console.WriteLine("How much point to win ?");
+            Console.WriteLine("Minimum 6");
+            do
+            {
+                string line = Console.ReadLine();
+                if (Int32.TryParse(line,out pointToWin))
+                {
+                    if(pointToWin >= 6)
+                    {
+                        Console.WriteLine("You will play with win point to " + pointToWin + ".");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Win point at " + pointToWin + " is not enough.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Value is invalide.");
+                }
+            } while (pointToWin < 6);
+
             Console.WriteLine("Rock ou Techno ?");
             selectMode = Console.ReadLine();
             for (var i = 0; i < 50; i++)
@@ -285,7 +309,7 @@ namespace Trivia
 
         private bool DidPlayerWin()
         {
-            return !(_purses[_currentPlayer] == 6);
+            return !(_purses[_currentPlayer] == pointToWin);
         }
     }
 
