@@ -12,14 +12,6 @@ namespace Trivia
 
             aGame.Add("Chet");
             aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
-            aGame.Add("Chet");
 
             var rand = new Random();
 
@@ -35,13 +27,16 @@ namespace Trivia
             {
                 aGame.Roll(rand.Next(5) + 1);
 
-                if (rand.Next(9) == 7)
+                if (aGame.UseJoker())
                 {
-                    _notAWinner = aGame.WrongAnswer();
-                }
-                else
-                {
-                    _notAWinner = aGame.WasCorrectlyAnswered();
+                    if (rand.Next(9) == 7)
+                    {
+                        _notAWinner = aGame.WrongAnswer();
+                    }
+                    else
+                    {
+                        _notAWinner = aGame.WasCorrectlyAnswered();
+                    }
                 }
                 
             } while (_notAWinner);
