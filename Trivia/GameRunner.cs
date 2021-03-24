@@ -12,6 +12,9 @@ namespace Trivia
 
             aGame.Add("Chet");
             aGame.Add("Foo");
+            aGame.Add("Paul");
+            aGame.Add("Florian");
+            aGame.Add("Yoann");
 
             var rand = new Random();
 

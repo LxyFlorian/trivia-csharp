@@ -209,6 +209,10 @@ namespace Trivia
 
         private string CurrentCategory()
         {
+            if (!String.IsNullOrEmpty(selectMode) && (selectMode == "Pop" || selectMode == "Science" || selectMode == "Sports" || selectMode == "Rock" || selectMode == "Techno"))
+            {
+                return selectMode;
+            }
             if (_places[_currentPlayer] == 0) return "Pop";
             if (_places[_currentPlayer] == 4) return "Pop";
             if (_places[_currentPlayer] == 8) return "Pop";
@@ -274,6 +278,10 @@ namespace Trivia
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(_players[_currentPlayer] + " Doit choisir quelle catégorie le prochain joueur va avoir parmis : ");
+            Console.WriteLine("Pop - Science - Sports - Rock - Techno");
+            string nextCategory = Console.ReadLine();
+            this.selectMode = nextCategory;
             Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
 
